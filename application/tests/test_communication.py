@@ -1,8 +1,8 @@
 import unittest
 from unittest import mock
 
-from communication import get_user_repos, get_repo_information
-from tests.utils import user_repos_mock, single_repo_mock
+from communication import get_user_repos, get_repo_information, InvalidJsonFormat
+from tests.utils import user_repos_mock, single_repo_mock, invalid_json_mock
 
 
 class TestGithubParsers(unittest.TestCase):
@@ -23,3 +23,7 @@ class TestGithubParsers(unittest.TestCase):
             "fullname": "testcase/testrepo"
         }
         self.assertEqual(expected_return, get_repo_information("testcase/testrepo"))
+
+    @mock.patch('communication.get_content_from_url', return_value=invalid_json_mock())
+    def test_parse_repo_invalid_json(self, repo_info):
+        self.assertRaises(InvalidJsonFormat, get_repo_information, "testcase/testrepo")

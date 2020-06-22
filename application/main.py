@@ -13,7 +13,7 @@ class Home(Resource):
         """Lista os endpoints disponíveis"""
         endpoints = {
             "user": "/api/<username>",
-            "repo": "/api/<repo_fullname>",
+            "repo": "/api/<username>/<repo_name>",
 
         }
         return endpoints
@@ -25,6 +25,8 @@ class UserInfo(Resource):
             return communication.get_user_repos(username)
         except communication.RequestError:
             return {"message": "Falha na busca do usuário"}, 400
+        except communication.InvalidJsonFormat:
+            return {"message": "Problema no formato da resposta. Tente novamente"}, 400
 
 
 class RepoInfo(Resource):
@@ -33,11 +35,13 @@ class RepoInfo(Resource):
         Busca as informações do repositório. O nome do repositório começa
         com o nome de usuário em seguida o nome da aplicação
         """
-        repo_fullname = f"/{username}/{repo_name}"
+        repo_fullname = f"{username}/{repo_name}"
         try:
             return communication.get_repo_information(repo_fullname)
         except communication.RequestError:
-            return {"message": "Falha na busca do repositório"}, 400
+            return {"message": "Falha na busca do repositório."}, 400
+        except communication.InvalidJsonFormat:
+            return {"message": "Problema no formato da resposta. Tente novamente"}, 400
 
 
 api.add_resource(Home, '/')

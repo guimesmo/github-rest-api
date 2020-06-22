@@ -27,6 +27,10 @@ def single_repo_mock():
     return get_json('repo.json')
 
 
+def invalid_json_mock():
+    return {"invalid": "format"}
+
+
 def request_failed_mock():
     obj = RequestMock()
     obj.status_code = 404

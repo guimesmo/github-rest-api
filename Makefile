@@ -1,5 +1,3 @@
-SHELL := /bin/sh
-
 export PYTHONPATH := $(pwd)/application
 
 FLASK_APP ?= application/main.py
@@ -17,4 +15,5 @@ test:
 	python -m unittest discover application
 
 coverage:
-	coverage run -m unittest discover application
+	coverage run --source application -m unittest discover application && \
+	coverage report -m

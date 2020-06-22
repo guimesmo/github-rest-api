@@ -1,6 +1,6 @@
 import requests
-import settings
 import json
+import settings
 
 
 class RequestError(Exception):

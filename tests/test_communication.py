@@ -1,24 +1,8 @@
-import json
-import os
-import pathlib
 import unittest
 from unittest import mock
 
 from communication import get_user_repos, get_repo_information
-
-CURRENT_PATH = pathlib.Path(__file__).parent.absolute()
-
-def get_json(filename):
-    with open(os.path.join(CURRENT_PATH, 'data', filename)) as ofile:
-        return json.loads(ofile.read())
-
-
-def user_repos_mock():
-    return get_json('user.json')
-
-
-def single_repo_mock():
-    return get_json('repo.json')
+from tests.utils import user_repos_mock, single_repo_mock
 
 
 class TestGithubParsers(unittest.TestCase):

@@ -36,7 +36,7 @@ def repo_info(username, repo_prefix, repo_name=None):
     """
     repo_fullname = "/".join([n for n in (username, repo_prefix, repo_name,) if n])
     try:
-        repo_info = communication.get_repo_information(repo_fullname)
+        info = communication.get_repo_information(repo_fullname)
     except communication.RequestError:
         return "Falha na busca do repositório", 400
-    return jsonify(repo_info)
+    return jsonify(info)

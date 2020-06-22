@@ -35,6 +35,6 @@ def get_user_repos(username: str) -> list:
 
 def get_repo_information(repo_full_name: str) -> dict:
     """Busca todas as informações de um repositório na api do github"""
-    user_repos_url = settings.GITHUB_REPO_INFO_URL.format(repo_full_name)
-    response = get_content_from_url(user_repos_url)
+    repo_url = settings.GITHUB_REPO_INFO_URL.format(repo_full_name)
+    response = get_content_from_url(repo_url)
     return parse_repo_info(response)
